@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 
-function Order() {
+function Pos() {
     const data = [
         {
             "id": 1,
@@ -301,4 +301,4 @@ function Order() {
         </>
     )
 }
-export default Order
+export default Pos

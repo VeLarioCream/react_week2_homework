@@ -1,4 +1,8 @@
 import { useEffect, useState } from 'react'
+import Menu from './components/MenuItem'
+import CartItem from './components/CartItem'
+import OrderItem from './components/OrderItem'
+import MenuItem from './components/MenuItem'
 
 
 function Pos() {
@@ -170,11 +174,7 @@ function Pos() {
                                             e.preventDefault()
                                             addToCar(drink)
                                         }}>
-                                            <div className="d-flex w-100 justify-content-between">
-                                                <h5 className="mb-1">{drink.name}</h5>
-                                                <small>{drink.price}</small>
-                                            </div>
-                                            <p className="mb-1">{drink.description}</p>
+                                            <MenuItem drink={drink}></MenuItem>
                                         </a>
                                 )})
                             }                            
@@ -193,36 +193,12 @@ function Pos() {
                                     <th scope="col">小計</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                              <tbody>
                                 {
                                     shopCar.map((item) => {
                                         return (
                                             <tr key={item.id}>
-                                                <td><button type="button" className="btn btn-sm" onClick={(e) => {
-                                                    e.preventDefault
-                                                    removeCar(item)
-                                                }}>【X】</button></td>
-                                                <td><button type="button" className="btn btn-sm" onClick={(e) => {
-                                                    e.preventDefault
-                                                    updateCar(item)
-                                                }}>▼</button></td>
-                                                <td>{item.name}</td>
-                                                <td><small>{item.description}</small></td>
-                                                <td>
-                                                    <select className="form-select" value={item.quantity} onChange={(e) => {
-                                                        const value = e.target.value
-                                                        updateQty(item, value)
-                                                    }} > 
-                                                        {
-                                                            [...Array(20).keys()].map((item) => {
-                                                                return (<option value={item+1} key={item+1}>{item+1}</option>)
-                                                            })
-                                                        }
-                                                        
-                                                    </select>
-                                                </td>
-                                                <td>{item.price}</td>
-                                                <td>{item.total}</td>
+                                                <CartItem item={item} removeCar={removeCar} updateCar={updateCar} updateQty={updateQty}></CartItem>
                                             </tr>
                                         )
                                     })
@@ -277,9 +253,7 @@ function Pos() {
                                                         orderList.map((item) => {
                                                             return(
                                                                 <tr key={item.id}>
-                                                                    <td>{item.name}</td>
-                                                                    <td>{item.quantity}</td>
-                                                                    <td>{item.total}</td>
+                                                                    <OrderItem item={item}></OrderItem>
                                                                 </tr>
                                                             )
                                                         })
